@@ -12,6 +12,7 @@ import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
@@ -104,6 +105,17 @@ public class Scanner implements Closeable {
     }
 
     private final LinkedList<long[]> matchedIds = new LinkedList<>();
+
+    public Long[] getMatchedIds() {
+
+        Long[] matchResults = new Long[matchedIds.size()];
+
+        for (int idx = 0; idx < matchedIds.size(); idx++) {
+            matchResults[idx] = Long.valueOf(matchedIds.get(idx)[0]);
+        }
+
+        return matchResults;
+    }
 
     private final match_event_handler matchHandler = new match_event_handler() {
         public int call(int id, long from, long to, int flags, Pointer context) {
